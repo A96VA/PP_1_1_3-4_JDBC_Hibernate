@@ -12,14 +12,16 @@ public class Util {
     private static final String PASSWORD = "root";
     private static  Connection connection;
 
+    private Util() {
+    }
+
     public static Connection getConnection(){
 
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL,USERNAME, PASSWORD);
             System.out.println("connect Ok");
-            connection.close();
-            System.out.println("connect ZAKRIT");
+
         } catch (ClassNotFoundException e) {
             System.out.println("connect class Util");
             throw new RuntimeException(e);
