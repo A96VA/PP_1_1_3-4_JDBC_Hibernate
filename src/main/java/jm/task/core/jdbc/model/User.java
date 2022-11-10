@@ -10,23 +10,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "User")
-public class User {
-
+@Table (name = "UserAD")
+public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column (name = "id")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column (name = "name")
     private String name;
 
-    @Column(name = "lastName")
+    @Column (name = "lastName")
     private String lastName;
 
-    @Column(name = "age")
+    @Column (name = "age")
     private Byte age;
 
     public User() {
@@ -46,7 +46,6 @@ public class User {
         this.lastName = lastName;
         this.age = age;
     }
-
 
     public Long getId() {
         return id;

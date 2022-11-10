@@ -61,6 +61,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
 
         String sql = "INSERT INTO Abc (name, lastName, age) VALUES (?, ?, ?)"; // НАЗВАНИЕ ТАБЛИЦЫ
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
             preparedStatement.setString(1, name);
@@ -69,7 +70,6 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             connection.commit();
             System.out.println("User с именем " + name + " добавлен в базу данных");
-
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -82,14 +82,15 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
+
         String sql = "DELETE FROM Abc WHERE Id = ?"; // НАЗВАНИЕ ТАБЛИЦЫ
+
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
             connection.commit();
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("удален пользователь " + id + "метод removeUserById");
@@ -102,8 +103,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() {
+
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM Abc"; // НАЗВАНИЕ ТАБЛИЦЫ
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -115,14 +118,12 @@ public class UserDaoJDBCImpl implements UserDao {
                 userList.add(user1);
                 System.out.println(userList);
                 System.out.println("Вывод списка метод getAllUsers");
-
             }
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {
                 connection.rollback();
-
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -131,7 +132,9 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
+
         String sql = "DELETE FROM Abc"; // НАЗВАНИЕ ТАБЛИЦЫ
+
         try (Connection connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             connection.setAutoCommit(false);
